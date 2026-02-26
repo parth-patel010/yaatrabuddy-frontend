@@ -72,7 +72,7 @@ export function ChatRoom({
   const markMessagesAsRead = async () => {
     if (!user) return;
     try {
-      const list = await api.get<any[]>('/data/chat_messages', { params: { connection_id: connectionId } });
+      const list = await api.get<any[]>('/data/chat_messages', { connection_id: connectionId });
       const toMark = (Array.isArray(list) ? list : []).filter((m) => m.sender_id !== user.id && !m.read);
       await Promise.all(toMark.map((m) => api.patch(`/data/chat_messages/${m.id}`)));
     } catch (error) {
@@ -157,7 +157,7 @@ export function ChatRoom({
   const fetchMessages = async () => {
     setLoading(true);
     try {
-      const data = await api.get<ChatMessage[]>('/data/chat_messages', { params: { connection_id: connectionId } });
+      const data = await api.get<ChatMessage[]>('/data/chat_messages', { connection_id: connectionId });
       setMessages(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching messages:', error);

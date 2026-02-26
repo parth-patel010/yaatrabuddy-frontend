@@ -83,7 +83,7 @@ export default function GroupChatDetail() {
       setGroupChat(group);
       setTimeRemaining(getTimeRemaining(group.expires_at));
 
-      const rideList = await api.get<any[]>('/data/rides', { params: { id: group.ride_id } });
+      const rideList = await api.get<any[]>('/data/rides', { id: group.ride_id });
       const rideData = Array.isArray(rideList) && rideList[0] ? rideList[0] : null;
       if (rideData?.status === 'cancelled_by_admin') {
         setRideCancelled(true);

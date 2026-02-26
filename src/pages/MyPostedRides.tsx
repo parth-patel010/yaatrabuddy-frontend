@@ -55,7 +55,7 @@ export default function MyPostedRides() {
 
   const fetchMyRides = async () => {
     try {
-      const data = await api.get<Ride[]>('/data/rides', { params: { user_id: user!.id } });
+      const data = await api.get<Ride[]>('/data/rides', { user_id: user!.id });
       const list = Array.isArray(data) ? data : [];
       setRides(list.filter((r: any) => r.status !== 'deleted'));
     } catch (error) {

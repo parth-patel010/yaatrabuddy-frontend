@@ -26,7 +26,7 @@ async function request<T>(
   if (token) {
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
   }
-  if (!(init.body instanceof FormData) && typeof init.body !== 'string') {
+  if (init.body != null && !(init.body instanceof FormData)) {
     (headers as Record<string, string>)['Content-Type'] = 'application/json';
   }
   const res = await fetch(url, { ...init, headers });

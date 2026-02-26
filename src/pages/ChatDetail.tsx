@@ -98,14 +98,14 @@ export default function ChatDetail() {
         is_expired: conn.is_expired,
       });
 
-      const rideList = await api.get<any[]>('/data/rides', { params: { id: conn.ride_id } });
+      const rideList = await api.get<any[]>('/data/rides', { id: conn.ride_id });
       const rideData = Array.isArray(rideList) && rideList[0] ? rideList[0] : null;
       if (rideData?.status === 'cancelled_by_admin') {
         setRideCancelled(true);
       }
 
       const profileData = await api.post<any[]>('/rpc/get_public_profile', { _user_id: conn.partner_id });
-      const profilesList = await api.get<any[]>('/data/profiles', { params: { ids: conn.partner_id } });
+      const profilesList = await api.get<any[]>('/data/profiles', { ids: conn.partner_id });
       const premiumData = Array.isArray(profilesList) && profilesList[0] ? profilesList[0] : null;
 
       const partnerIsPremium = premiumData?.is_premium && 
@@ -128,7 +128,7 @@ export default function ChatDetail() {
     if (!chatId) return;
 
     try {
-      const data = await api.get<ChatMessage[]>('/data/chat_messages', { params: { connection_id: chatId } });
+      const data = await api.get<ChatMessage[]>('/data/chat_messages', { connection_id: chatId });
       setMessages(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -142,7 +142,7 @@ export default function ChatDetail() {
     if (!chatId || !user) return;
 
     try {
-      const list = await api.get<{ id: string; sender_id: string }[]>('/data/chat_messages', { params: { connection_id: chatId } });
+      const list = await api.get<{ id: string; sender_id: string }[]>('/data/chat_messages', { connection_id: chatId });
       const toMark = (Array.isArray(list) ? list : []).filter((m) => m.sender_id !== user.id && !(m as any).read);
       await Promise.all(toMark.map((m) => api.patch(`/data/chat_messages/${m.id}`)));
     } catch (error) {

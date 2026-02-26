@@ -85,7 +85,7 @@ export function ChatButton({
     if (!connection || !user) return;
 
     try {
-      const messagesList = await api.get<any[]>('/data/chat_messages', { params: { connection_id: connection.id } });
+      const messagesList = await api.get<any[]>('/data/chat_messages', { connection_id: connection.id });
       const count = (messagesList || []).filter((m: any) => !m.read && m.sender_id !== user.id).length;
       setUnreadCount(count || 0);
     } catch (error) {

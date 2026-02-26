@@ -194,7 +194,7 @@ export default function AdminPanel() {
           const [reporterProfile, reportedProfile, rideData] = await Promise.all([
             api.get<any>(`/data/profiles/${report.reporter_id}`).catch(() => null),
             api.get<any>(`/data/profiles/${report.reported_user_id}`).catch(() => null),
-            api.get<any[]>('/data/rides', { params: { id: report.ride_id } }).then((rides) => {
+            api.get<any[]>('/data/rides', { id: report.ride_id }).then((rides) => {
               const arr = Array.isArray(rides) ? rides : [];
               return arr[0] || null;
             }).catch(() => null),
@@ -282,7 +282,7 @@ export default function AdminPanel() {
         throw new Error('Could not extract file path from URL');
       }
 
-      const data = await api.get<{ signedUrl?: string; error?: string }>('/admin/signed-id-url', { params: { path: filePath } });
+      const data = await api.get<{ signedUrl?: string; error?: string }>('/admin/signed-id-url', { path: filePath });
 
       if (data?.signedUrl) {
         setIdViewerUrl(data.signedUrl);

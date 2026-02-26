@@ -104,7 +104,7 @@ export function useGroupChatMessages(groupChatId: string | undefined) {
     }
 
     try {
-      const data = await api.get<GroupChatMessage[]>('/data/group_chat_messages', { params: { group_chat_id: groupChatId } });
+      const data = await api.get<GroupChatMessage[]>('/data/group_chat_messages', { group_chat_id: groupChatId });
       setMessages(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching group messages:', error);

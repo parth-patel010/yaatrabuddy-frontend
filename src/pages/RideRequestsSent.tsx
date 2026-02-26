@@ -64,12 +64,12 @@ export default function RideRequestsSent() {
 
   const fetchMyRequests = async () => {
     try {
-      const requestsData = await api.get<any[]>('/data/ride_requests', { params: { requester_id: user!.id } });
+      const requestsData = await api.get<any[]>('/data/ride_requests', { requester_id: user!.id });
       const list = Array.isArray(requestsData) ? requestsData : [];
 
       const requestsWithRides = await Promise.all(
         list.map(async (request: any) => {
-          const rideList = await api.get<any[]>('/data/rides', { params: { id: request.ride_id } });
+          const rideList = await api.get<any[]>('/data/rides', { id: request.ride_id });
           const ride = Array.isArray(rideList) && rideList.length > 0 ? rideList[0] : null;
           return { ...request, ride };
         })
@@ -105,7 +105,7 @@ export default function RideRequestsSent() {
 
             const profileRows = await api.post<any[]>('/rpc/get_public_profile', { _user_id: rideOwnerId });
             const profile = Array.isArray(profileRows) ? profileRows[0] : null;
-            const profilesList = await api.get<any[]>('/data/profiles', { params: { ids: rideOwnerId } });
+            const profilesList = await api.get<any[]>('/data/profiles', { ids: rideOwnerId });
             const premiumData = Array.isArray(profilesList) && profilesList.length > 0 ? profilesList[0] : null;
             const ownerIsPremium =
               premiumData?.is_premium &&

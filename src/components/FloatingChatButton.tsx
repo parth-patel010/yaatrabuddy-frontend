@@ -19,7 +19,7 @@ export function FloatingChatButton() {
       if (!mine.length) return 0;
       let unread = 0;
       for (const c of mine) {
-        const messages = await api.get<any[]>('/data/chat_messages', { params: { connection_id: c.id } });
+        const messages = await api.get<any[]>('/data/chat_messages', { connection_id: c.id });
         const msgs = Array.isArray(messages) ? messages : [];
         unread += msgs.filter((m) => m.sender_id !== user.id && !m.read).length;
       }

@@ -86,7 +86,7 @@ function RideRequestActionScreen({ notification }: { notification: any }) {
   const { data: ride, isLoading: rideLoading } = useQuery({
     queryKey: ['ride-detail', notification.ride_id],
     queryFn: async () => {
-      const list = await api.get<any[]>('/data/rides', { params: { id: notification.ride_id } });
+      const list = await api.get<any[]>('/data/rides', { id: notification.ride_id });
       return Array.isArray(list) && list[0] ? list[0] : null;
     },
     enabled: !!notification.ride_id,
@@ -96,7 +96,7 @@ function RideRequestActionScreen({ notification }: { notification: any }) {
     queryKey: ['ride-request-for-notification', notification.ride_id, user?.id],
     queryFn: async () => {
       if (!user?.id || !notification.ride_id) return null;
-      const list = await api.get<any[]>('/data/ride_requests', { params: { ride_id: notification.ride_id } });
+      const list = await api.get<any[]>('/data/ride_requests', { ride_id: notification.ride_id });
       const paid = (Array.isArray(list) ? list : []).filter((r) => r.request_payment_status === 'paid');
       paid.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       return paid[0] || null;
@@ -110,7 +110,7 @@ function RideRequestActionScreen({ notification }: { notification: any }) {
       if (!rideRequest?.requester_id) return null;
       const profileData = await api.post<any[]>('/rpc/get_public_profile', { _user_id: rideRequest.requester_id });
       const profile = Array.isArray(profileData) ? profileData[0] : null;
-      const profilesList = await api.get<any[]>('/data/profiles', { params: { ids: rideRequest.requester_id } });
+      const profilesList = await api.get<any[]>('/data/profiles', { ids: rideRequest.requester_id });
       const premiumData = Array.isArray(profilesList) && profilesList[0] ? profilesList[0] : null;
       const requesterIsPremium =
         premiumData?.is_premium &&

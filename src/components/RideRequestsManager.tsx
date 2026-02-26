@@ -69,7 +69,7 @@ export function RideRequestsManager({ rideId }: RideRequestsManagerProps) {
     try {
       if (!user) return;
 
-      const requestsData = await api.get<any[]>('/data/ride_requests', { params: { ride_id: rideId } });
+      const requestsData = await api.get<any[]>('/data/ride_requests', { ride_id: rideId });
       const list = Array.isArray(requestsData) ? requestsData : [];
 
       const requestsWithProfiles = await Promise.all(
@@ -103,7 +103,7 @@ export function RideRequestsManager({ rideId }: RideRequestsManagerProps) {
             const profileRows = await api.post<any[]>('/rpc/get_public_profile', { _user_id: request.requester_id });
             const profile = Array.isArray(profileRows) ? profileRows[0] : null;
 
-            const profilesList = await api.get<any[]>('/data/profiles', { params: { ids: request.requester_id } });
+            const profilesList = await api.get<any[]>('/data/profiles', { ids: request.requester_id });
             const premiumData = Array.isArray(profilesList) && profilesList.length > 0 ? profilesList[0] : null;
             const requesterIsPremium =
               premiumData?.is_premium &&

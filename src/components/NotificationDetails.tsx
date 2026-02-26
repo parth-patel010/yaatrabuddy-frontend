@@ -77,7 +77,7 @@ export function NotificationDetails({ notification, open, onOpenChange, onAction
     
     setLoading(true);
     try {
-      const rideList = await api.get<any[]>('/data/rides', { params: { id: notification.ride_id } });
+      const rideList = await api.get<any[]>('/data/rides', { id: notification.ride_id });
       const rideData = Array.isArray(rideList) && rideList[0] ? rideList[0] : null;
 
       if (rideData) {
@@ -87,7 +87,7 @@ export function NotificationDetails({ notification, open, onOpenChange, onAction
         setRideOwnerProfile(ownerProfile ? { full_name: ownerProfile.full_name, avatar_url: ownerProfile.avatar_url, phone_number: ownerProfile.phone_number } : null);
 
         const isRideOwner = rideData.user_id === user.id;
-        const reqList = await api.get<any[]>('/data/ride_requests', { params: { ride_id: notification.ride_id } });
+        const reqList = await api.get<any[]>('/data/ride_requests', { ride_id: notification.ride_id });
         const requests = Array.isArray(reqList) ? reqList : [];
 
         if (isRideOwner) {

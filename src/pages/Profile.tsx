@@ -91,7 +91,7 @@ export default function ProfilePage() {
 
   const fetchMyRides = async () => {
     try {
-      const data = await api.get<unknown[]>('/data/rides', { params: { user_id: user!.id } });
+      const data = await api.get<unknown[]>('/data/rides', { user_id: user!.id });
       setMyRides(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching rides:', error);

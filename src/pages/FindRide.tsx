@@ -163,8 +163,8 @@ export default function FindRide() {
       const userIds = [...new Set(ridesData.map((r: any) => r.user_id))];
 
       const [profilesResult, requestsResult] = await Promise.all([
-        userIds.length > 0 ? api.get<any[]>('/data/profiles', { params: { ids: userIds.join(',') } }) : Promise.resolve([]),
-        user ? api.get<any[]>('/data/ride_requests', { params: { requester_id: user.id } }) : Promise.resolve([]),
+        userIds.length > 0 ? api.get<any[]>('/data/profiles', { ids: userIds.join(',') }) : Promise.resolve([]),
+        user ? api.get<any[]>('/data/ride_requests', { requester_id: user.id }) : Promise.resolve([]),
       ]);
 
       const profileMap = new Map<string, any>();

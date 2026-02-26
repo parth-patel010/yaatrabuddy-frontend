@@ -83,7 +83,7 @@ export function ChatStoreProvider({ children }: { children: ReactNode }) {
         allConnections.map(async (conn) => {
           // Fetch partner profile
           const profileData = await api.post<any[]>('/rpc/get_public_profile', { _user_id: conn.partner_id });
-          const profilesList = await api.get<any[]>('/data/profiles', { params: { ids: conn.partner_id } });
+          const profilesList = await api.get<any[]>('/data/profiles', { ids: conn.partner_id });
           const premiumData = Array.isArray(profilesList) && profilesList.length > 0 ? profilesList[0] : null;
           const partnerIsPremium =
             premiumData?.is_premium &&
@@ -103,10 +103,10 @@ export function ChatStoreProvider({ children }: { children: ReactNode }) {
             avatar_url: null,
           };
 
-          const rideList = await api.get<any[]>('/data/rides', { params: { id: conn.ride_id } });
+          const rideList = await api.get<any[]>('/data/rides', { id: conn.ride_id });
           const rideData = Array.isArray(rideList) && rideList.length > 0 ? rideList[0] : null;
 
-          const messagesList = await api.get<any[]>('/data/chat_messages', { params: { connection_id: conn.id } });
+          const messagesList = await api.get<any[]>('/data/chat_messages', { connection_id: conn.id });
           const sorted = (messagesList || []).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
           const lastMsgData = sorted[0] || null;
 

@@ -123,6 +123,8 @@ export default function ProfilePage() {
 
   const handleAvatarUpdate = (newUrl: string) => {
     setProfile((prev) => prev ? { ...prev, avatar_url: newUrl } : null);
+    // Refetch profile so avatar_url is in sync with server and image displays
+    fetchProfile();
   };
 
   if (authLoading || loading) {
@@ -137,10 +139,10 @@ export default function ProfilePage() {
 
   return (
     <AppShell hideTopBar shellClassName="bg-deep-teal">
-      <div className="relative w-full max-w-[390px] mx-auto h-full flex flex-col text-cream font-poppins antialiased overflow-hidden">
+      <div className="relative w-full min-h-full flex flex-col text-cream font-poppins antialiased">
         <TealHeader title="YaatraBuddy" />
-        <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 py-3 pb-24">
-      <div className="space-y-6">
+        <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-24 overflow-y-auto overflow-x-hidden">
+      <div className="space-y-6 w-full">
         <Card className="border-white/10 bg-dark-teal shadow-soft rounded-xl text-cream">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -161,14 +163,14 @@ export default function ProfilePage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <AvatarUpload
                 userId={user!.id}
                 currentAvatarUrl={profile?.avatar_url || null}
                 userName={profile?.full_name || 'User'}
                 onUploadComplete={handleAvatarUpdate}
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="text-lg font-semibold text-white">{profile?.full_name}</p>
                   {isPremium ? (

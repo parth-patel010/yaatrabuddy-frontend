@@ -490,14 +490,14 @@ export default function AdminPanel() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Admin Panel</h1>
-          <p className="text-muted-foreground mt-1">Manage users, verifications, and rides</p>
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Admin Panel</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Manage users, verifications, and rides</p>
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 md:grid-cols-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
@@ -552,38 +552,38 @@ export default function AdminPanel() {
           </Card>
         </div>
 
-        <Tabs defaultValue="pending" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8">
-            <TabsTrigger value="pending" className="gap-2">
-              <AlertTriangle className="h-4 w-4" />
+        <Tabs defaultValue="pending" className="space-y-4 sm:space-y-6">
+          <TabsList className="flex w-full overflow-x-auto flex-nowrap gap-1 p-1 h-auto min-h-10 sm:grid sm:grid-cols-4 lg:grid-cols-8 sm:flex-none">
+            <TabsTrigger value="pending" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <AlertTriangle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Pending</span> ({pendingVerifications.length})
             </TabsTrigger>
-            <TabsTrigger value="reports" className="gap-2">
-              <Flag className="h-4 w-4" />
+            <TabsTrigger value="reports" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Flag className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Reports</span> ({pendingReports.length})
             </TabsTrigger>
-            <TabsTrigger value="rewards" className="gap-2">
-              <Gift className="h-4 w-4" />
+            <TabsTrigger value="rewards" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Rewards</span>
             </TabsTrigger>
-            <TabsTrigger value="management" className="gap-2">
-              <Crown className="h-4 w-4" />
+            <TabsTrigger value="management" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Crown className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Management</span>
             </TabsTrigger>
-            <TabsTrigger value="users" className="gap-2">
-              <Users className="h-4 w-4" />
+            <TabsTrigger value="users" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Users</span>
             </TabsTrigger>
-            <TabsTrigger value="rides" className="gap-2">
-              <Car className="h-4 w-4" />
+            <TabsTrigger value="rides" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Car className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Rides</span>
             </TabsTrigger>
-            <TabsTrigger value="locations" className="gap-2">
-              <MapPin className="h-4 w-4" />
+            <TabsTrigger value="locations" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Locations</span>
             </TabsTrigger>
-            <TabsTrigger value="blocked" className="gap-2">
-              <Ban className="h-4 w-4" />
+            <TabsTrigger value="blocked" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
+              <Ban className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Blocked</span> ({blockedUsers.length})
             </TabsTrigger>
           </TabsList>

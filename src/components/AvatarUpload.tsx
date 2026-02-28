@@ -79,7 +79,7 @@ export function AvatarUpload({
 
   return (
     <div className="relative inline-block">
-      <Avatar className={sizeClasses[size]}>
+      <Avatar className={sizeClasses[size]} key={currentAvatarUrl ?? 'no-avatar'}>
         <AvatarImage src={currentAvatarUrl || undefined} alt={userName} />
         <AvatarFallback className="bg-accent text-accent-foreground text-xl font-semibold">
           {userName.charAt(0).toUpperCase()}

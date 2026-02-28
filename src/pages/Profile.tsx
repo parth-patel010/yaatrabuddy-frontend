@@ -123,8 +123,8 @@ export default function ProfilePage() {
 
   const handleAvatarUpdate = (newUrl: string) => {
     setProfile((prev) => prev ? { ...prev, avatar_url: newUrl } : null);
-    // Refetch profile so avatar_url is in sync with server and image displays
-    fetchProfile();
+    // Refetch after a short delay so DB has committed and image displays reliably
+    setTimeout(() => fetchProfile(), 300);
   };
 
   if (authLoading || loading) {
@@ -139,11 +139,11 @@ export default function ProfilePage() {
 
   return (
     <AppShell hideTopBar shellClassName="bg-deep-teal">
-      <div className="relative w-full min-h-full flex flex-col text-cream font-poppins antialiased">
+      <div className="relative w-full flex flex-col flex-1 min-h-0 text-cream font-poppins antialiased">
         <TealHeader title="YaatraBuddy" />
-        <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-24 overflow-y-auto overflow-x-hidden">
-      <div className="space-y-6 w-full">
-        <Card className="border-white/10 bg-dark-teal shadow-soft rounded-xl text-cream">
+        <main className="flex-1 min-h-0 w-full max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-32 overflow-y-auto overflow-x-hidden overscroll-contain">
+      <div className="space-y-6 w-full min-w-0">
+        <Card className="border-white/10 bg-dark-teal shadow-soft rounded-xl text-cream overflow-visible">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
@@ -162,7 +162,7 @@ export default function ProfilePage() {
               )}
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-6 overflow-visible pb-2">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <AvatarUpload
                 userId={user!.id}
@@ -211,25 +211,25 @@ export default function ProfilePage() {
               </Button>
             )}
 
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2 text-cream/80"><User className="h-4 w-4" /> Full Name</Label>
+            <div className="space-y-4 min-w-0">
+              <div className="space-y-2 min-w-0">
+                <Label className="flex items-center gap-2 text-cream/80"><User className="h-4 w-4 shrink-0" /> Full Name</Label>
                 {isEditing ? (
-                  <Input value={editName} onChange={(e) => setEditName(e.target.value)} placeholder="Your name" className="bg-white/10 border-white/20 text-cream placeholder:text-cream/50" />
+                  <Input value={editName} onChange={(e) => setEditName(e.target.value)} placeholder="Your name" className="w-full min-w-0 bg-white/10 border-white/20 text-cream placeholder:text-cream/50" />
                 ) : (
-                  <p className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-cream">{profile?.full_name}</p>
+                  <p className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-cream min-h-10 flex items-center">{profile?.full_name}</p>
                 )}
               </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2 text-cream/80"><Mail className="h-4 w-4" /> Email</Label>
-                <p className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-cream">{profile?.email}</p>
+              <div className="space-y-2 min-w-0">
+                <Label className="flex items-center gap-2 text-cream/80"><Mail className="h-4 w-4 shrink-0" /> Email</Label>
+                <p className="w-full min-w-0 rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-cream min-h-10 flex items-center break-words text-sm">{profile?.email}</p>
               </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2 text-cream/80"><Phone className="h-4 w-4" /> Phone Number <span className="text-red-300">*</span></Label>
+              <div className="space-y-2 min-w-0">
+                <Label className="flex items-center gap-2 text-cream/80"><Phone className="h-4 w-4 shrink-0" /> Phone Number <span className="text-red-300">*</span></Label>
                 {isEditing ? (
-                  <Input value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="Your phone number" type="tel" className="bg-white/10 border-white/20 text-cream placeholder:text-cream/50" />
+                  <Input value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="Your phone number" type="tel" className="w-full min-w-0 bg-white/10 border-white/20 text-cream placeholder:text-cream/50" />
                 ) : (
-                  <p className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-cream">{profile?.phone_number || <span className="text-amber-200">Please add your phone number</span>}</p>
+                  <p className="w-full min-w-0 rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-cream min-h-10 flex items-center">{profile?.phone_number || <span className="text-amber-200">Please add your phone number</span>}</p>
                 )}
               </div>
             </div>

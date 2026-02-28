@@ -97,11 +97,11 @@ export function RewardProgress({
             <Button
               onClick={() => navigate('/rewards')}
               variant="hero"
-              className="w-full"
+              className="w-full min-w-0 text-sm sm:text-base whitespace-normal py-3 h-auto"
               size="lg"
             >
-              <Gift className="mr-2 h-5 w-5" />
-              Spin Available! Claim Now
+              <Gift className="mr-2 h-5 w-5 shrink-0" />
+              <span className="break-words">Spin Available! Claim Now</span>
             </Button>
           ) : (
             <div className="text-center py-2">

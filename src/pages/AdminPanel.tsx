@@ -552,8 +552,9 @@ export default function AdminPanel() {
           </Card>
         </div>
 
-        <Tabs defaultValue="pending" className="space-y-4 sm:space-y-6">
-          <TabsList className="flex w-full overflow-x-auto flex-nowrap gap-1 p-1 h-auto min-h-10 sm:grid sm:grid-cols-4 lg:grid-cols-8 sm:flex-none">
+        <Tabs defaultValue="pending" className="space-y-4 sm:space-y-6 w-full min-w-0">
+          <div className="w-full min-w-0 overflow-x-auto overflow-y-visible pb-1 -mx-1 px-1 sm:mx-0 sm:px-0">
+            <TabsList className="flex w-full min-w-max sm:min-w-0 gap-1 p-2 h-auto min-h-10 sm:grid sm:grid-cols-4 lg:grid-cols-8 sm:w-full">
             <TabsTrigger value="pending" className="gap-1 sm:gap-2 shrink-0 text-xs sm:text-sm">
               <AlertTriangle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Pending</span> ({pendingVerifications.length})
@@ -587,6 +588,7 @@ export default function AdminPanel() {
               <span className="hidden sm:inline">Blocked</span> ({blockedUsers.length})
             </TabsTrigger>
           </TabsList>
+          </div>
 
           {/* Pending Verifications */}
           <TabsContent value="pending">
